@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { Menu, X, Phone, Calendar, Home, User, Scissors, ImageIcon, Star, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
@@ -21,7 +20,7 @@ const Header = () => {
     () => [
       { id: "home", label: "HEM" },
       { id: "om", label: "OM OSS" },
-      { id: "tjänster", label: "TJÄNSTER" },
+      { id: "tjanster", label: "TJÄNSTER" },
       { id: "galleri", label: "GALLERI" },
       { id: "recensioner", label: "RECENSIONER" },
       { id: "kontakt", label: "KONTAKT" },
@@ -46,7 +45,7 @@ const Header = () => {
     lastScrollY = currentScrollY
 
     // Determine active section
-    const sections = ["om", "tjänster", "galleri", "recensioner", "kontakt"]
+    const sections = ["om", "tjanster", "galleri", "recensioner", "kontakt"]
 
     // Find the section that is currently in view
     for (const id of sections) {
@@ -173,8 +172,8 @@ const Header = () => {
         className={cn(
           "fixed top-0 left-0 right-0 z-[9999] transition-all duration-500",
           scrolled
-            ? "bg-black/90 backdrop-blur-md py-2 shadow-lg"
-            : "bg-gradient-to-b from-black/80 to-transparent py-4",
+            ? "bg-slate-900/95 backdrop-blur-md py-2 shadow-lg"
+            : "bg-gradient-to-b from-slate-900/90 to-transparent py-4",
           headerVisible ? "translate-y-0" : "-translate-y-full",
         )}
         role="banner"
@@ -191,27 +190,31 @@ const Header = () => {
             }}
             aria-label="Hem"
           >
-            <div className="relative h-16 w-16 md:h-20 md:w-20 overflow-hidden transition-transform duration-300 group-hover:scale-105">
-              <Image src="/images/logo.png" alt="Bella Vida Barbershop Logo" fill className="object-contain" priority />
-              <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
+            <div className="relative h-12 w-12 md:h-16 md:w-16 overflow-hidden transition-transform duration-300 group-hover:scale-105">
+              <img 
+                src="https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/logo-LfwF1WGknmDvZTika58ZPF9PDceuCD.png" 
+                alt="Samos Barbershop Logo" 
+                className="w-full h-full object-contain"
+              />
+              <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
             </div>
-            <span className="sr-only">Bella Vida Barbershop</span>
+            <span className="sr-only">Samos Barbershop</span>
           </Link>
 
           {/* Mobile Header Controls */}
           {isMobile ? (
             <div className="flex items-center gap-3 z-50">
               <Link
-                href="tel:070-455 66 15"
-                className="bg-amber-500 hover:bg-amber-600 text-black p-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-amber-500/20 active:scale-95"
-                aria-label="Ring oss på 070-455 66 15"
+                href="tel:036-12 71 12"
+                className="bg-blue-600 hover:bg-blue-700 text-white p-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-blue-500/20 active:scale-95"
+                aria-label="Ring oss på 036-12 71 12"
               >
                 <Phone size={20} className="stroke-[2]" />
                 <span className="sr-only">Ring oss</span>
               </Link>
               <button
-                onClick={() => scrollToSection("tjänster")}
-                className="gold-gradient hover:opacity-90 text-black p-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-amber-500/20 active:scale-95"
+                onClick={() => scrollToSection("tjanster")}
+                className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 text-white p-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-blue-500/20 active:scale-95"
                 aria-label="Boka tid"
               >
                 <Calendar size={20} className="stroke-[2]" />
@@ -222,7 +225,7 @@ const Header = () => {
                 size="icon"
                 className={cn(
                   "text-white p-2.5 transition-all duration-300 relative",
-                  isOpen ? "bg-gray-800" : "hover:bg-white/10",
+                  isOpen ? "bg-slate-800" : "hover:bg-white/10",
                 )}
                 onClick={toggleMenu}
                 aria-expanded={isOpen}
@@ -264,7 +267,7 @@ const Header = () => {
                     onClick={() => scrollToSection(item.id === "home" ? "om" : item.id)}
                     className={cn(
                       "text-white uppercase text-sm font-medium tracking-wider relative group transition-all duration-300",
-                      activeSection === item.id ? "text-amber-500" : "hover:text-amber-300",
+                      activeSection === item.id ? "text-blue-400" : "hover:text-blue-300",
                     )}
                     aria-current={activeSection === item.id ? "page" : undefined}
                   >
@@ -272,13 +275,13 @@ const Header = () => {
                       {item.label}
                       {item.id === activeSection && (
                         <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="ml-1.5">
-                          <ChevronDown size={14} className="text-amber-500" />
+                          <ChevronDown size={14} className="text-blue-400" />
                         </motion.div>
                       )}
                     </div>
                     <span
                       className={cn(
-                        "absolute -bottom-1 left-0 h-0.5 gold-gradient transition-all duration-300",
+                        "absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-300",
                         activeSection === item.id ? "w-full" : "w-0 group-hover:w-full",
                       )}
                       aria-hidden="true"
@@ -290,20 +293,20 @@ const Header = () => {
               {/* Action Buttons */}
               <div className="flex items-center gap-3">
                 <button
-                  onClick={() => scrollToSection("tjänster")}
-                  className="bg-amber-500 hover:bg-amber-600 transition-all duration-300 text-black font-bold px-4 py-2 rounded-md flex items-center h-10 shadow-md hover:shadow-amber-500/20 active:scale-95"
+                  onClick={() => scrollToSection("tjanster")}
+                  className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white font-bold px-4 py-2 rounded-md flex items-center h-10 shadow-md hover:shadow-blue-500/20 active:scale-95"
                   aria-label="Boka tid"
                 >
                   <Calendar className="mr-2 h-4 w-4" />
                   Boka Tid
                 </button>
                 <Link
-                  href="tel:070-455 66 15"
-                  className="gold-gradient hover:opacity-90 transition-all duration-300 text-black font-bold px-4 py-2 rounded-md flex items-center h-10 shadow-md hover:shadow-amber-500/20 active:scale-95"
-                  aria-label="Ring oss på 070-455 66 15"
+                  href="tel:036-12 71 12"
+                  className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 transition-all duration-300 text-white font-bold px-4 py-2 rounded-md flex items-center h-10 shadow-md hover:shadow-blue-500/20 active:scale-95"
+                  aria-label="Ring oss på 036-12 71 12"
                 >
                   <Phone className="mr-2 h-4 w-4" />
-                  070-455 66 15
+                  036-12 71 12
                 </Link>
               </div>
             </nav>
@@ -328,7 +331,7 @@ const Header = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                  className="absolute inset-0 bg-slate-900/90 backdrop-blur-md"
                   onClick={toggleMenu}
                 />
 
@@ -337,13 +340,13 @@ const Header = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 0.3, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="absolute top-0 left-0 w-64 h-64 bg-amber-900/20 rounded-full -translate-x-1/2 -translate-y-1/2"
+                  className="absolute top-0 left-0 w-64 h-64 bg-blue-900/20 rounded-full -translate-x-1/2 -translate-y-1/2"
                 ></motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 0.3, scale: 1 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="absolute bottom-0 right-0 w-96 h-96 bg-amber-900/20 rounded-full translate-x-1/3 translate-y-1/3"
+                  className="absolute bottom-0 right-0 w-96 h-96 bg-blue-900/20 rounded-full translate-x-1/3 translate-y-1/3"
                 ></motion.div>
 
                 {/* Menu content with slide-in animation */}
@@ -352,31 +355,30 @@ const Header = () => {
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
                   transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                  className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-gradient-to-b from-gray-900 to-black border-l border-amber-900/30 shadow-2xl overflow-y-auto"
+                  className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-gradient-to-b from-slate-900 to-slate-800 border-l border-blue-900/30 shadow-2xl overflow-y-auto"
                 >
                   <div className="flex flex-col h-full p-6">
                     {/* Logo and close button */}
-                    <div className="flex justify-between items-center mb-8 pb-4 border-b border-amber-900/30">
+                    <div className="flex justify-between items-center mb-8 pb-4 border-b border-blue-900/30">
                       <div className="flex items-center">
                         <div className="relative h-12 w-12 mr-3 cursor-pointer" onClick={() => scrollToSection("home")}>
-                          <Image
-                            src="/images/logo.png"
-                            alt="Bella Vida Barbershop Logo"
-                            fill
-                            className="object-contain"
+                          <img
+                            src="https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/logo-LfwF1WGknmDvZTika58ZPF9PDceuCD.png"
+                            alt="Samos Barbershop Logo"
+                            className="w-full h-full object-contain"
                           />
                         </div>
                         <h2 className="flex flex-col items-start">
                           <span className="text-2xl font-bold">
-                            <span className="text-amber-500 mr-1">Bella</span>
-                            <span className="text-white">Vida</span>
+                            <span className="text-blue-400 mr-1">Samos</span>
+                            <span className="text-white">Barbershop</span>
                           </span>
-                          <span className="text-sm uppercase tracking-wider text-gray-300 font-medium">Barbershop</span>
+                          <span className="text-sm uppercase tracking-wider text-gray-300 font-medium">Sedan 2010</span>
                         </h2>
                       </div>
                       <button
                         onClick={toggleMenu}
-                        className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-white transition-colors z-[9999] active:scale-95"
+                        className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-colors z-[9999] active:scale-95"
                         aria-label="Stäng meny"
                       >
                         <X size={20} />
@@ -396,8 +398,8 @@ const Header = () => {
                             className={cn(
                               "w-full text-left px-4 py-3 rounded-lg flex items-center transition-all duration-300",
                               activeSection === item.id
-                                ? "bg-gradient-to-r from-amber-500/20 to-transparent text-amber-500"
-                                : "text-gray-300 hover:bg-gray-800/50 hover:text-white",
+                                ? "bg-gradient-to-r from-blue-500/20 to-transparent text-blue-400"
+                                : "text-gray-300 hover:bg-slate-800/50 hover:text-white",
                             )}
                             aria-current={activeSection === item.id ? "page" : undefined}
                           >
@@ -405,13 +407,13 @@ const Header = () => {
                               className={cn(
                                 "p-2 rounded-full mr-3 transition-all duration-300",
                                 activeSection === item.id
-                                  ? "bg-amber-500/20 text-amber-500"
-                                  : "bg-gray-800 text-gray-400",
+                                  ? "bg-blue-500/20 text-blue-400"
+                                  : "bg-slate-800 text-gray-400",
                               )}
                             >
                               {item.id === "home" && <Home size={20} strokeWidth={2} />}
                               {item.id === "om" && <User size={20} strokeWidth={2} />}
-                              {item.id === "tjänster" && <Scissors size={20} strokeWidth={2} />}
+                              {item.id === "tjanster" && <Scissors size={20} strokeWidth={2} />}
                               {item.id === "galleri" && <ImageIcon size={20} strokeWidth={2} />}
                               {item.id === "recensioner" && <Star size={20} strokeWidth={2} />}
                             </div>
@@ -419,7 +421,7 @@ const Header = () => {
                             {activeSection === item.id && (
                               <motion.div
                                 layoutId="menuIndicator"
-                                className="ml-auto h-2 w-2 rounded-full bg-amber-500"
+                                className="ml-auto h-2 w-2 rounded-full bg-blue-400"
                                 transition={{ type: "spring", duration: 0.5 }}
                               />
                             )}
@@ -429,15 +431,15 @@ const Header = () => {
                     </nav>
 
                     {/* Action buttons */}
-                    <div className="pt-4 border-t border-amber-900/30 space-y-3">
+                    <div className="pt-4 border-t border-blue-900/30 space-y-3">
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5, duration: 0.3 }}
                       >
                         <button
-                          onClick={() => scrollToSection("tjänster")}
-                          className="gold-gradient hover:opacity-90 transition-all duration-300 text-black font-bold px-6 py-4 rounded-xl flex items-center justify-center w-full shadow-lg active:scale-95"
+                          onClick={() => scrollToSection("tjanster")}
+                          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 transition-all duration-300 text-white font-bold px-6 py-4 rounded-xl flex items-center justify-center w-full shadow-lg active:scale-95"
                         >
                           <Calendar className="mr-3 h-5 w-5" />
                           Boka Tid
@@ -450,8 +452,8 @@ const Header = () => {
                         transition={{ delay: 0.6, duration: 0.3 }}
                       >
                         <Link
-                          href="tel:070-455 66 15"
-                          className="bg-white text-gray-900 hover:bg-gray-100 transition-all duration-300 font-bold px-6 py-4 flex items-center justify-center rounded-xl w-full shadow-lg active:scale-95"
+                          href="tel:036-12 71 12"
+                          className="bg-white text-slate-900 hover:bg-gray-100 transition-all duration-300 font-bold px-6 py-4 flex items-center justify-center rounded-xl w-full shadow-lg active:scale-95"
                         >
                           <Phone className="mr-3 h-5 w-5" />
                           Ring Oss Nu
@@ -460,9 +462,9 @@ const Header = () => {
                     </div>
 
                     {/* Footer info */}
-                    <div className="mt-6 pt-4 border-t border-amber-900/30 text-center">
-                      <p className="text-gray-400 text-sm">Öppet alla dagar i veckan</p>
-                      <p className="text-amber-500 text-xs mt-1">Lantmätargränd 26, Jönköping</p>
+                    <div className="mt-6 pt-4 border-t border-blue-900/30 text-center">
+                      <p className="text-gray-400 text-sm">Öppet måndag-lördag</p>
+                      <p className="text-blue-400 text-xs mt-1">Klostergatan 50B, Jönköping</p>
                     </div>
                   </div>
                 </motion.div>
@@ -475,7 +477,7 @@ const Header = () => {
       {/* Mobile Bottom Navigation Bar */}
       {isMobile && (
         <nav
-          className="fixed bottom-0 left-0 right-0 z-[9997] bg-black/95 backdrop-blur-md border-t border-amber-900/30 pb-safe shadow-lg shadow-black/50"
+          className="fixed bottom-0 left-0 right-0 z-[9997] bg-slate-900/95 backdrop-blur-md border-t border-blue-900/30 pb-safe shadow-lg shadow-black/50"
           aria-label="Bottennavigation"
         >
           <div className="grid grid-cols-5 h-16 px-1 touch-pan-y">
@@ -483,25 +485,25 @@ const Header = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id === "home" ? "om" : item.id)}
-                className="flex flex-col items-center justify-center space-y-0.5 relative active:bg-gray-800/30 transition-colors touch-manipulation will-change-transform"
+                className="flex flex-col items-center justify-center space-y-0.5 relative active:bg-slate-800/30 transition-colors touch-manipulation will-change-transform"
                 aria-current={activeSection === item.id ? "page" : undefined}
               >
                 <div
                   className={cn(
                     "p-1.5 rounded-full transition-all duration-300",
-                    activeSection === item.id ? "text-amber-500 scale-110" : "text-gray-400 hover:text-white",
+                    activeSection === item.id ? "text-blue-400 scale-110" : "text-gray-400 hover:text-white",
                   )}
                 >
                   {item.id === "home" && <Home size={20} strokeWidth={2} />}
                   {item.id === "om" && <User size={20} strokeWidth={2} />}
-                  {item.id === "tjänster" && <Scissors size={20} strokeWidth={2} />}
+                  {item.id === "tjanster" && <Scissors size={20} strokeWidth={2} />}
                   {item.id === "galleri" && <ImageIcon size={20} strokeWidth={2} />}
                   {item.id === "recensioner" && <Star size={20} strokeWidth={2} />}
                 </div>
                 <span
                   className={cn(
                     "text-[10px] font-medium tracking-wide transition-all duration-300",
-                    activeSection === item.id ? "text-amber-500" : "text-gray-400",
+                    activeSection === item.id ? "text-blue-400" : "text-gray-400",
                   )}
                 >
                   {item.label}
@@ -509,7 +511,7 @@ const Header = () => {
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="bottomNavIndicator"
-                    className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-amber-500"
+                    className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-blue-400"
                     transition={{ type: "spring", duration: 0.4, bounce: 0.3 }}
                   />
                 )}

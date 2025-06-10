@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
 import { motion } from "framer-motion"
 import { Scissors, Clock, Star, Phone, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -16,15 +15,7 @@ const Hero = () => {
   }, [])
 
   const scrollToSection = (id: string) => {
-    // Map special character IDs to ASCII versions
-    const idMap: Record<string, string> = {
-      tjänster: "tjanster",
-    }
-
-    // Use the ASCII version for element lookup
-    const lookupId = idMap[id] || id
-
-    const element = document.getElementById(lookupId)
+    const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
     }
@@ -32,22 +23,22 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[90vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/hero-bg.jpg"
-          alt="Bella Vida Barbershop"
-          fill
-          priority
-          className={`object-cover ${isMobile ? "object-[center_30%]" : "object-[center_20%]"}`}
-          sizes="100vw"
-          loading="eager"
-          fetchPriority="high"
-        />
-        <div
-          className={`absolute inset-0 bg-gradient-to-b ${
-            isMobile ? "from-black/90 via-black/70 to-black/90" : "from-black/80 via-black/60 to-black/80"
-          }`}
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+          poster="/images/hero-poster.jpg"
+        >
+          <source
+            src="https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/Hero-Background-kSJqn1zM5mY9B0LyFJ52omusZsy1G2.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-800/80 to-slate-900/90" />
       </div>
 
       <div className="container mx-auto px-4 z-10 text-center pt-16 md:pt-20 flex flex-col h-full justify-center relative">
@@ -57,15 +48,10 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-6 md:mb-8 mx-auto"
         >
-          <Image
-            src="/images/logo.png"
-            alt="Bella Vida Barbershop Logo"
-            width={isMobile ? 160 : 220}
-            height={isMobile ? 160 : 220}
-            className="mx-auto drop-shadow-2xl"
-            priority
-            loading="eager"
-            fetchPriority="high"
+          <img
+            src="https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/logo-LfwF1WGknmDvZTika58ZPF9PDceuCD.png"
+            alt="Samos Barbershop Logo"
+            className="mx-auto drop-shadow-2xl h-32 w-auto md:h-40"
           />
         </motion.div>
 
@@ -75,16 +61,17 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           className="text-3xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight drop-shadow-xl"
         >
-          DIN NÖJDHET ÄR <span className="text-gold">VÅRAT NÖJE</span>
+          PROFESSIONELL <span className="text-blue-400">FRISÖR & BARBERARE</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-          className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-8 md:mb-10 drop-shadow-lg"
+          className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8 md:mb-10 drop-shadow-lg"
         >
-          Med flera års erfarenhet samt en brinnande passion för barbering så kan du förvänta dig högklassiga tjänster.
+          Grundat 2010 - Vi har flera års erfarenhet av att klippa och forma alla typer av hår och skägg. 
+          Centralt beläget med fri parkering.
         </motion.p>
 
         <motion.div
@@ -93,13 +80,16 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
           className="flex flex-col sm:flex-row justify-center gap-4 mb-8 md:mb-16"
         >
-          <Button onClick={() => scrollToSection("tjänster")} className="btn-primary h-[56px] w-full sm:w-[220px]">
+          <Button 
+            onClick={() => scrollToSection("tjanster")} 
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[56px] w-full sm:w-[220px]"
+          >
             Boka Tid Nu
           </Button>
 
           <Button
-            onClick={() => (window.location.href = "tel:070-455 66 15")}
-            className="btn-secondary h-[56px] w-full sm:w-[220px]"
+            onClick={() => (window.location.href = "tel:036-12 71 12")}
+            className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-8 py-4 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[56px] w-full sm:w-[220px]"
           >
             <Phone className="mr-2 h-5 w-5" />
             Ring Oss
@@ -113,27 +103,27 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
             className="grid grid-cols-1 gap-3 max-w-md mx-auto mb-8"
           >
-            <div className="glass-effect-dark p-4 rounded-lg border border-white/10 flex items-center">
-              <Scissors className="h-8 w-8 text-amber-400 mr-3 flex-shrink-0" />
+            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 flex items-center">
+              <Scissors className="h-8 w-8 text-blue-400 mr-3 flex-shrink-0" />
               <div className="text-left">
-                <h3 className="text-white font-semibold text-base mb-1">Premium Klippning</h3>
-                <p className="text-gray-300 text-xs">Professionell styling med fokus på detaljer</p>
+                <h3 className="text-white font-semibold text-base mb-1">Expertis Sedan 2010</h3>
+                <p className="text-gray-300 text-xs">Över 14 års erfarenhet av professionell frisering</p>
               </div>
             </div>
 
-            <div className="glass-effect-dark p-4 rounded-lg border border-white/10 flex items-center">
-              <Clock className="h-8 w-8 text-amber-400 mr-3 flex-shrink-0" />
+            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 flex items-center">
+              <Clock className="h-8 w-8 text-blue-400 mr-3 flex-shrink-0" />
               <div className="text-left">
-                <h3 className="text-white font-semibold text-base mb-1">Flexibla Tider</h3>
-                <p className="text-gray-300 text-xs">Öppet alla dagar i veckan för din bekvämlighet</p>
+                <h3 className="text-white font-semibold text-base mb-1">Centralt Läge</h3>
+                <p className="text-gray-300 text-xs">Klostergatan 50B, Torpa - Fri parkering</p>
               </div>
             </div>
 
-            <div className="glass-effect-dark p-4 rounded-lg border border-white/10 flex items-center">
-              <Star className="h-8 w-8 text-amber-400 mr-3 flex-shrink-0" />
+            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20 flex items-center">
+              <Star className="h-8 w-8 text-blue-400 mr-3 flex-shrink-0" />
               <div className="text-left">
                 <h3 className="text-white font-semibold text-base mb-1">Nöjda Kunder</h3>
-                <p className="text-gray-300 text-xs">Över 1000+ nöjda kunder och 5-stjärniga recensioner</p>
+                <p className="text-gray-300 text-xs">Vårt mål är att alla går härifrån med ett leende</p>
               </div>
             </div>
           </motion.div>
@@ -144,22 +134,22 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16"
           >
-            <div className="glass-effect-dark p-6 rounded-lg border border-white/10 flex flex-col items-center hover-lift">
-              <Scissors className="h-10 w-10 text-amber-400 mb-3" />
-              <h3 className="text-white font-semibold text-lg mb-1">Premium Klippning</h3>
-              <p className="text-gray-300 text-sm">Professionell styling med fokus på detaljer</p>
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20 flex flex-col items-center hover:bg-white/15 transition-all duration-300">
+              <Scissors className="h-10 w-10 text-blue-400 mb-3" />
+              <h3 className="text-white font-semibold text-lg mb-1">Expertis Sedan 2010</h3>
+              <p className="text-gray-300 text-sm text-center">Över 14 års erfarenhet av professionell frisering</p>
             </div>
 
-            <div className="glass-effect-dark p-6 rounded-lg border border-white/10 flex flex-col items-center hover-lift">
-              <Clock className="h-10 w-10 text-amber-400 mb-3" />
-              <h3 className="text-white font-semibold text-lg mb-1">Flexibla Tider</h3>
-              <p className="text-gray-300 text-sm">Öppet alla dagar i veckan för din bekvämlighet</p>
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20 flex flex-col items-center hover:bg-white/15 transition-all duration-300">
+              <Clock className="h-10 w-10 text-blue-400 mb-3" />
+              <h3 className="text-white font-semibold text-lg mb-1">Centralt Läge</h3>
+              <p className="text-gray-300 text-sm text-center">Klostergatan 50B, Torpa - Fri parkering</p>
             </div>
 
-            <div className="glass-effect-dark p-6 rounded-lg border border-white/10 flex flex-col items-center hover-lift">
-              <Star className="h-10 w-10 text-amber-400 mb-3" />
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20 flex flex-col items-center hover:bg-white/15 transition-all duration-300">
+              <Star className="h-10 w-10 text-blue-400 mb-3" />
               <h3 className="text-white font-semibold text-lg mb-1">Nöjda Kunder</h3>
-              <p className="text-gray-300 text-sm">Över 1000+ nöjda kunder och 5-stjärniga recensioner</p>
+              <p className="text-gray-300 text-sm text-center">Vårt mål är att alla går härifrån med ett leende</p>
             </div>
           </motion.div>
         )}
@@ -169,7 +159,7 @@ const Hero = () => {
         <button
           onClick={() => scrollToSection("om")}
           aria-label="Scrolla ner"
-          className="text-white hover:text-amber-400 transition-colors bg-black/30 p-2 rounded-full"
+          className="text-white hover:text-blue-400 transition-colors bg-black/30 p-2 rounded-full"
         >
           <ChevronDown className="h-6 w-6" />
         </button>

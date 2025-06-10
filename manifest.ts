@@ -2,13 +2,13 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Bella Vida Barbershop",
-    short_name: "Bella Vida",
-    description: "Din nöjdhet är vårat nöje - Professionell barbershop i Jönköping",
+    name: "Samos Barbershop",
+    short_name: "Samos",
+    description: "Professionell frisör & barberare i Jönköping sedan 2010. Centralt beläget med fri parkering.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
-    theme_color: "#d4af37",
+    theme_color: "#1e40af",
     orientation: "portrait",
     icons: [
       {
@@ -40,7 +40,7 @@ export default function manifest(): MetadataRoute.Manifest {
         name: "Boka tid",
         short_name: "Boka",
         description: "Boka en tid hos oss",
-        url: "/#tjänster",
+        url: "/#tjanster",
         icons: [{ src: "/icons/booking-icon.png", sizes: "192x192" }],
       },
       {
@@ -64,7 +64,7 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "1280x720",
         type: "image/png",
         platform: "wide",
-        label: "Bella Vida Barbershop Hemsida",
+        label: "Samos Barbershop Hemsida",
       },
       {
         src: "/screenshots/screenshot2.png",
@@ -84,7 +84,7 @@ export default function manifest(): MetadataRoute.Manifest {
     related_applications: [
       {
         platform: "webapp",
-        url: "https://bellavidabarbershop.se/manifest.json",
+        url: "https://samosbarbershop.se/manifest.json",
       },
     ],
     prefer_related_applications: false,
