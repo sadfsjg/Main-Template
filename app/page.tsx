@@ -5,8 +5,9 @@ import Services from "@/components/sections/services"
 import Gallery from "@/components/sections/gallery"
 import Reviews from "@/components/sections/reviews"
 import Contact from "@/components/sections/contact"
-import SocialMedia from "@/components/sections/social-media"
 import Footer from "@/components/footer"
+import DownloadReminder from "@/components/pwa/download-reminder"
+import OfflineIndicator from "@/components/pwa/offline-indicator"
 
 export default function Home() {
   return (
@@ -18,8 +19,9 @@ export default function Home() {
       <Gallery />
       <Reviews />
       <Contact />
-      <SocialMedia />
       <Footer />
+      <DownloadReminder />
+      <OfflineIndicator />
     </main>
   )
 }
