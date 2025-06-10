@@ -68,92 +68,69 @@ const Gallery = () => {
   const controls = useAnimation()
   const isMobile = useMobile()
 
-  // Gallery data
+  // Gallery data with real Samos Barbershop images
   const images: GalleryImage[] = [
     {
       type: "image",
-      src: "/images/gallery-1.png",
-      alt: "Klassisk herrklippning",
-      description: "Klassisk herrklippning med precision och stil",
-      tags: ["Herrklippning", "Klassisk"],
+      src: "/186382577_3952955994821820_3221956573234043554_n.jpg",
+      alt: "Klassisk herrklippning med skägg",
+      description: "Professionell herrklippning med välformad skäggtrimning",
+      tags: ["Herrklippning", "Skägg", "Klassisk"],
     },
     {
       type: "image",
-      src: "/images/gallery-2.png",
+      src: "/196012236_4005570726227013_594735780332764556_n.jpg",
       alt: "Modern fade-klippning",
-      description: "Modern fade-klippning med skarp kontrast",
-      tags: ["Fade", "Modern"],
+      description: "Modern fade-klippning med precision och stil",
+      tags: ["Fade", "Modern", "Herrklippning"],
     },
     {
       type: "image",
-      src: "/images/gallery-3.png",
-      alt: "Skäggtrimning",
-      description: "Professionell skäggtrimning och formning",
-      tags: ["Skägg", "Trimning"],
+      src: "/461852192_18461547415019357_680501459503095349_n.jpg",
+      alt: "Lockig herrklippning",
+      description: "Expertklippning för lockigt hår med fade",
+      tags: ["Lockigt", "Fade", "Modern"],
     },
     {
       type: "image",
-      src: "/images/gallery-4.png",
-      alt: "Komplett styling",
-      description: "Komplett styling med hår och skägg",
-      tags: ["Styling", "Komplett"],
+      src: "/470217915_18475462606019357_6602686083435063255_n.jpg",
+      alt: "Kort snaggning",
+      description: "Professionell snaggning med ren finish",
+      tags: ["Snaggning", "Kort", "Ren"],
     },
     {
       type: "image",
-      src: "/images/gallery-5.png",
-      alt: "Traditionell rakning",
-      description: "Traditionell rakning med rakhyvel",
-      tags: ["Rakning", "Traditionell"],
-    },
-    {
-      type: "image",
-      src: "/images/gallery-6.png",
-      alt: "Trendig herrfrisyr",
-      description: "Trendig herrfrisyr med textur och volym",
-      tags: ["Trendig", "Textur"],
+      src: "/470470670_18477291961019357_7621443201384490400_n.jpg",
+      alt: "Klassisk slickback med skägg",
+      description: "Elegant slickback-frisyr med välvårdad skäggtrimning",
+      tags: ["Slickback", "Skägg", "Elegant"],
     },
   ]
 
   const videos: GalleryVideo[] = [
     {
       type: "video",
-      src: "/videos/video-1.mp4",
-      poster: "/images/gallery-1.png",
-      title: "Skinfade-klippning",
-      description: "Steg för steg-process för en perfekt skinfade",
-      tags: ["Skinfade", "Tutorial"],
+      src: "https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/Samo-3ncHNSLoiKOOfLCZKmqco2JD9c3XnU.mp4",
+      poster: "/186382577_3952955994821820_3221956573234043554_n.jpg",
+      title: "Samo i arbete",
+      description: "Se Samo, grundaren av Samos Barbershop, i aktion",
+      tags: ["Samo", "Grundare"],
     },
     {
       type: "video",
-      src: "/videos/video-2.mp4",
-      poster: "/images/gallery-2.png",
-      title: "Skäggtrimning och styling",
-      description: "Professionell skäggtrimning och styling för det perfekta utseendet",
-      tags: ["Skägg", "Styling"],
+      src: "https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/Sarmad-99wxRM8x6GLGf0q1o3KD3cxlsABpXQ.mp4",
+      poster: "/196012236_4005570726227013_594735780332764556_n.jpg",
+      title: "Sarmad - Expertfrisör",
+      description: "Sarmad visar sin expertis inom modern frisering",
+      tags: ["Sarmad", "Expert"],
     },
     {
       type: "video",
-      src: "/videos/video-3.mp4",
-      poster: "/images/gallery-3.png",
-      title: "Klassisk herrklippning",
-      description: "Traditionell herrklippning med moderna inslag",
-      tags: ["Klassisk", "Herrklippning"],
-    },
-    {
-      type: "video",
-      src: "/videos/video-4.mp4",
-      poster: "/images/gallery-4.png",
-      title: "Moderna tekniker",
-      description: "Visa på moderna klipptekniker för den stilmedvetne mannen",
-      tags: ["Modern", "Teknik"],
-    },
-    {
-      type: "video",
-      src: "/videos/video-5.mp4",
-      poster: "/images/gallery-5.png",
-      title: "Komplett makeover",
-      description: "Från start till slut - en komplett makeover",
-      tags: ["Makeover", "Komplett"],
+      src: "https://fvega0dwq1jnr8l4.public.blob.vercel-storage.com/Marvin-3UFaZmbmWdMiUG2Uww37NU8CcItNrc.mp4",
+      poster: "/461852192_18461547415019357_680501459503095349_n.jpg",
+      title: "Marvin - Stilspecialist",
+      description: "Marvin demonstrerar moderna klipptekniker",
+      tags: ["Marvin", "Modern"],
     },
   ]
 
@@ -288,7 +265,7 @@ const Gallery = () => {
           activeTab === "bilder" ? handlePrevImage() : handlePrevVideo()
           break
         case "ArrowRight":
-          activeTab === "bilder" ? handleNextImage() : handlePrevVideo()
+          activeTab === "bilder" ? handleNextImage() : handleNextVideo()
           break
         case "Escape":
           closeLightbox()
@@ -340,22 +317,18 @@ const Gallery = () => {
     }))
   }
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <section id="galleri" ref={sectionRef} className="py-24 bg-white relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-amber-50 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-50 rounded-full translate-x-1/3 translate-y-1/3 opacity-30"></div>
-
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23d4af37' fillOpacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-          }}
-        ></div>
-      </div>
+      <div className="absolute top-0 left-0 w-64 h-64 bg-blue-50 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-50 rounded-full translate-x-1/3 translate-y-1/3 opacity-30"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
@@ -365,13 +338,13 @@ const Gallery = () => {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-5xl font-bold mb-4"
           >
-            VÅRT <span className="text-gold">GALLERI</span>
+            VÅRT <span className="text-blue-600">GALLERI</span>
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, width: 0 }}
             animate={isInView ? { opacity: 1, width: "5rem" } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-20 h-1 gold-gradient mx-auto mb-6"
+            className="w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mb-6"
           ></motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -379,8 +352,7 @@ const Gallery = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-600 max-w-2xl mx-auto"
           >
-            Utforska våra senaste arbeten och se vad vi kan göra för dig. Klicka på bilderna för att se dem i större
-            format.
+            Utforska våra senaste arbeten och se kvaliteten på vårt hantverk. Klicka på bilderna för att se dem i större format.
           </motion.p>
         </div>
 
@@ -395,7 +367,9 @@ const Gallery = () => {
             <button
               type="button"
               className={`px-8 py-3 text-sm font-medium transition-all duration-300 flex items-center ${
-                activeTab === "bilder" ? "gold-gradient text-black" : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                activeTab === "bilder" 
+                  ? "bg-blue-600 text-white" 
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
               onClick={() => setActiveTab("bilder")}
             >
@@ -406,7 +380,7 @@ const Gallery = () => {
               type="button"
               className={`px-8 py-3 text-sm font-medium transition-all duration-300 flex items-center ${
                 activeTab === "videos"
-                  ? "gold-gradient text-black font-bold"
+                  ? "bg-blue-600 text-white font-bold"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
               onClick={() => setActiveTab("videos")}
@@ -442,8 +416,6 @@ const Gallery = () => {
                     onEnded={() => setIsPlaying(false)}
                     muted={isMuted}
                     preload="auto"
-                    onLoadStart={() => console.log("Video preloading started")}
-                    onLoadedData={() => console.log("Video data loaded")}
                   />
 
                   {/* Video overlay for click handling */}
@@ -499,7 +471,7 @@ const Gallery = () => {
                               initial={{ scale: 0.8, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
                               exit={{ scale: 0.8, opacity: 0 }}
-                              className="bg-gradient-to-br from-amber-400 to-amber-600 rounded-full p-5 shadow-lg cursor-pointer pointer-events-auto"
+                              className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-full p-5 shadow-lg cursor-pointer pointer-events-auto"
                               onClick={() => {
                                 if (videoRef.current) {
                                   videoRef.current.play()
@@ -565,14 +537,14 @@ const Gallery = () => {
 
                 {/* Video thumbnails */}
                 <div className="bg-gradient-to-r from-gray-900 to-black p-4">
-                  <div className="flex overflow-x-auto space-x-4 pb-2 [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-black/20 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-amber-600/50 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb:hover]:bg-amber-600/70">
+                  <div className="flex overflow-x-auto space-x-4 pb-2">
                     {videos.map((video, index) => (
                       <div
                         key={index}
                         className={`relative flex-shrink-0 w-32 rounded-md overflow-hidden cursor-pointer transition-all duration-300 ${
                           currentVideoIndex === index
-                            ? "ring-2 ring-amber-500 shadow-lg transform scale-105"
-                            : "opacity-70 hover:opacity-100 hover:ring-1 hover:ring-amber-300"
+                            ? "ring-2 ring-blue-500 shadow-lg transform scale-105"
+                            : "opacity-70 hover:opacity-100 hover:ring-1 hover:ring-blue-300"
                         }`}
                         onClick={() => {
                           setCurrentVideoIndex(index)
@@ -590,7 +562,7 @@ const Gallery = () => {
                         </AspectRatio>
                         <div className="absolute inset-0 flex items-center justify-center">
                           <div className="bg-black/60 backdrop-blur-sm rounded-full p-1.5">
-                            <Play className="h-4 w-4 text-amber-400" />
+                            <Play className="h-4 w-4 text-blue-400" />
                           </div>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 bg-black/70 backdrop-blur-sm py-1 px-2">
@@ -608,7 +580,7 @@ const Gallery = () => {
               {/* Main featured image */}
               <div className="relative w-full h-[500px] md:h-[600px] rounded-xl overflow-hidden shadow-2xl group">
                 <Image
-                  src={images[currentImageIndex].src || "/placeholder.svg"}
+                  src={images[currentImageIndex].src}
                   alt={images[currentImageIndex].alt}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -625,7 +597,7 @@ const Gallery = () => {
 
                   <div className="flex flex-wrap gap-2">
                     {images[currentImageIndex].tags?.map((tag) => (
-                      <Badge key={tag} className="bg-amber-500/80 hover:bg-amber-600 text-black">
+                      <Badge key={tag} className="bg-blue-500/80 hover:bg-blue-600 text-white">
                         {tag}
                       </Badge>
                     ))}
@@ -679,19 +651,19 @@ const Gallery = () => {
               </div>
 
               {/* Thumbnails grid */}
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
                 {images.map((image, index) => (
                   <div
                     key={index}
                     className={`relative h-24 rounded-md overflow-hidden cursor-pointer transition-all duration-300 ${
                       currentImageIndex === index
-                        ? "ring-2 ring-amber-500 shadow-lg"
-                        : "hover:ring-2 hover:ring-amber-300 filter hover:brightness-110"
+                        ? "ring-2 ring-blue-500 shadow-lg"
+                        : "hover:ring-2 hover:ring-blue-300 filter hover:brightness-110"
                     }`}
                     onClick={() => setCurrentImageIndex(index)}
                   >
                     <Image
-                      src={image.src || "/placeholder.svg"}
+                      src={image.src}
                       alt={`Thumbnail ${index + 1}`}
                       fill
                       className="object-cover"
@@ -745,7 +717,7 @@ const Gallery = () => {
                 <div className="relative h-full">
                   <div className="relative aspect-[3/2] md:aspect-[16/9] bg-black">
                     <Image
-                      src={images[lightboxIndex].src || "/placeholder.svg"}
+                      src={images[lightboxIndex].src}
                       alt={images[lightboxIndex].alt}
                       fill
                       className="object-contain"
@@ -785,7 +757,7 @@ const Gallery = () => {
 
                     <div className="flex flex-wrap gap-2 mt-3">
                       {images[lightboxIndex]?.tags?.map((tag) => (
-                        <Badge key={tag} className="bg-amber-500/80 hover:bg-amber-600 text-black">
+                        <Badge key={tag} className="bg-blue-500/80 hover:bg-blue-600 text-white">
                           {tag}
                         </Badge>
                       ))}
@@ -821,190 +793,24 @@ const Gallery = () => {
                     </div>
                   </div>
                 </div>
-              ) : (
-                <div className="relative h-full">
-                  <div
-                    className="relative aspect-[3/2] md:aspect-[16/9] bg-gradient-to-br from-gray-900 to-black"
-                    onMouseMove={resetControlsTimer}
-                    onTouchStart={resetControlsTimer}
-                  >
-                    <video
-                      ref={videoRef}
-                      src={videos[lightboxIndex].src}
-                      className="w-full h-full object-contain"
-                      playsInline
-                      onClick={togglePlayPause}
-                      onEnded={() => setIsPlaying(false)}
-                      muted={isMuted}
-                      controls={isMobile}
-                      preload="auto"
-                      onLoadStart={() => console.log("Lightbox video preloading started")}
-                      onLoadedData={() => console.log("Lightbox video data loaded")}
-                    />
-
-                    {/* Video overlay for click handling */}
-                    {!isMobile && <div className="absolute inset-0 cursor-pointer" onClick={togglePlayPause}></div>}
-
-                    {/* Custom video controls for desktop */}
-                    {!isMobile && (
-                      <AnimatePresence>
-                        {showControls && (
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="absolute inset-0 flex flex-col justify-between p-6 bg-gradient-to-t from-black/70 via-black/10 to-black/40"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {/* Top controls */}
-                            <div className="flex justify-between items-start">
-                              <div>
-                                <h3 className="text-white text-xl font-bold">{videos[lightboxIndex]?.title}</h3>
-                                <p className="text-gray-200">{videos[lightboxIndex]?.description}</p>
-                              </div>
-                            </div>
-
-                            {/* Center play button */}
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                              {!isPlaying && (
-                                <motion.div
-                                  initial={{ scale: 0.8, opacity: 0 }}
-                                  animate={{ scale: 1, opacity: 1 }}
-                                  exit={{ scale: 0.8, opacity: 0 }}
-                                  className="bg-amber-500 rounded-full p-6 shadow-lg cursor-pointer pointer-events-auto"
-                                  onClick={() => {
-                                    if (videoRef.current) {
-                                      videoRef.current.play()
-                                      setIsPlaying(true)
-                                    }
-                                  }}
-                                >
-                                  <Play className="h-12 w-12 text-white" />
-                                </motion.div>
-                              )}
-                            </div>
-
-                            {/* Bottom controls */}
-                            <div className="flex justify-between items-center">
-                              <div className="flex space-x-3">
-                                <Button
-                                  variant="ghost"
-                                  className="bg-black/50 hover:bg-black/70 text-white rounded-full"
-                                  onClick={togglePlayPause}
-                                >
-                                  {isPlaying ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
-                                  {isPlaying ? "Pausa" : "Spela"}
-                                </Button>
-
-                                <Button
-                                  variant="ghost"
-                                  className="bg-black/50 hover:bg-black/70 text-white rounded-full"
-                                  onClick={toggleMute}
-                                >
-                                  {isMuted ? (
-                                    <VolumeX className="h-4 w-4 mr-2" />
-                                  ) : (
-                                    <Volume2 className="h-4 w-4 mr-2" />
-                                  )}
-                                  {isMuted ? "Ljud på" : "Ljud av"}
-                                </Button>
-                              </div>
-
-                              <div className="text-white">
-                                {lightboxIndex + 1} / {videos.length}
-                              </div>
-
-                              <div className="flex space-x-3">
-                                <Button
-                                  variant="ghost"
-                                  className="bg-black/50 hover:bg-black/70 text-white rounded-full"
-                                  onClick={() => {
-                                    const newIndex = lightboxIndex === 0 ? videos.length - 1 : lightboxIndex - 1
-                                    setLightboxIndex(newIndex)
-                                    if (videoRef.current) {
-                                      videoRef.current.src = videos[newIndex].src
-                                      videoRef.current.load()
-                                      setIsPlaying(false)
-                                    }
-                                  }}
-                                >
-                                  <ChevronLeft className="h-4 w-4 mr-2" />
-                                  Föregående
-                                </Button>
-
-                                <Button
-                                  variant="ghost"
-                                  className="bg-black/50 hover:bg-black/70 text-white rounded-full"
-                                  onClick={() => {
-                                    const newIndex = lightboxIndex === videos.length - 1 ? 0 : lightboxIndex + 1
-                                    setLightboxIndex(newIndex)
-                                    if (videoRef.current) {
-                                      videoRef.current.src = videos[newIndex].src
-                                      videoRef.current.load()
-                                      setIsPlaying(false)
-                                    }
-                                  }}
-                                >
-                                  Nästa
-                                  <ChevronRight className="h-4 w-4 ml-2" />
-                                </Button>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    )}
-                  </div>
-
-                  {/* Video info */}
-                  <div className="bg-black/70 p-4 text-white">
-                    <h3 className="text-xl font-bold">{videos[lightboxIndex]?.title}</h3>
-                    <p className="text-gray-300 mt-1">{videos[lightboxIndex]?.description}</p>
-
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {videos[lightboxIndex]?.tags?.map((tag) => (
-                        <Badge key={tag} className="bg-amber-500/80 hover:bg-amber-600 text-black">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <div className="flex justify-between items-center mt-4">
-                      <div className="text-sm text-gray-300">
-                        {lightboxIndex + 1} / {videos.length}
-                      </div>
-
-                      <div className="flex space-x-2">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="bg-white/10 hover:bg-white/20 text-white rounded-full"
-                          onClick={() => toggleLike(`lightbox-video-${lightboxIndex}`)}
-                        >
-                          <Heart
-                            className={`h-4 w-4 mr-2 ${liked[`lightbox-video-${lightboxIndex}`] ? "fill-red-500 text-red-500" : ""}`}
-                          />
-                          Gilla
-                        </Button>
-
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="bg-white/10 hover:bg-white/20 text-white rounded-full"
-                        >
-                          <Share2 className="h-4 w-4 mr-2" />
-                          Dela
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              ) : null}
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {isMobile && (
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={() => scrollToSection("recensioner")}
+            aria-label="Scrolla till recensioner"
+            className="flex flex-col items-center text-blue-600"
+          >
+            <span className="text-sm mb-1">Recensioner</span>
+            <ChevronDown className="h-5 w-5 animate-bounce" />
+          </button>
+        </div>
+      )}
     </section>
   )
 }
