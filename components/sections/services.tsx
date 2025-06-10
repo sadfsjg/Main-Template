@@ -7,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
   Scissors,
-  BeakerIcon as Beard,
-  RadarIcon as Razor,
+  Users,
+  User,
   Clock,
   Star,
   ExternalLink,
@@ -18,6 +18,9 @@ import {
   ChevronUp,
   ChevronDown,
   Search,
+  Baby,
+  Crown,
+  GraduationCap,
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { motion, useInView } from "framer-motion"
@@ -36,6 +39,7 @@ interface Service {
   url: string
   popular?: boolean
   rating?: number
+  category: string
 }
 
 const Services = () => {
@@ -50,7 +54,7 @@ const Services = () => {
   const dialogContentRef = useRef<HTMLDivElement>(null)
   const isMobile = useMobile()
   const [searchTerm, setSearchTerm] = useState("")
-  const [visibleServices, setVisibleServices] = useState(6)
+  const [selectedCategory, setSelectedCategory] = useState("alla")
 
   // Check scroll position to show/hide scroll to top button
   const handleScroll = () => {
@@ -88,229 +92,223 @@ const Services = () => {
   }, [isDialogOpen])
 
   const services: Service[] = [
+    // Barnklippning
     {
-      id: "klippning",
-      title: "KLIPPNING",
-      description: "Professionell klippning anpassad efter dina önskemål",
+      id: "barnklippning-flickor",
+      title: "BARNKLIPPNING FLICKOR (0-12 år)",
+      description: "Professionell klippning för flickor upp till 12 år",
       duration: "30 minuter",
       price: "400 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/klippning-2005355",
-      popular: true,
+      icon: <Baby className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/barnklippning-0-12-ar-flickor-1486880",
       rating: 4.9,
+      category: "barn",
     },
     {
-      id: "klippning-10-18",
-      title: "KLIPPNING 10-18 ÅR",
-      description: "Klippning för ungdomar mellan 10-18 år",
-      duration: "30 minuter",
-      price: "350 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/klippning-10-18-ar-2027133",
-      rating: 4.8,
-    },
-    {
-      id: "barn-klippning",
-      title: "BARN KLIPPNING 0-10 ÅR",
-      description: "Klippning för barn upp till 10 år",
-      duration: "30 minuter",
-      price: "320 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/barn-klippning-0-10-ar-2005356",
-      rating: 4.8,
-    },
-    {
-      id: "student-klippning",
-      title: "STUDENT KLIPPNING",
-      description: "Klippning för studenter med studentrabatt",
-      duration: "30 minuter",
-      price: "350 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/student-klippning-2005366",
-      rating: 4.7,
-    },
-    {
-      id: "senior-klippning",
-      title: "SENIOR KLIPPNING",
-      description: "Klippning för seniorer med seniorrabatt",
+      id: "barnklippning-pojkar",
+      title: "BARNKLIPPNING POJKAR (0-12 år)",
+      description: "Professionell klippning för pojkar upp till 12 år",
       duration: "30 minuter",
       price: "330 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/senior-klippning-2005371",
+      icon: <Baby className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/barnklippning-0-12-ar-pojkar-1272146",
+      rating: 4.8,
+      category: "barn",
+    },
+    // Damklippning
+    {
+      id: "damklippning-kort",
+      title: "DAMKLIPPNING KORT (0-5 cm)",
+      description: "Professionell klippning för kort hår",
+      duration: "30 minuter",
+      price: "440 kr",
+      icon: <Users className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/damklippning-kort-0-5-cm-1272390",
+      popular: true,
       rating: 4.9,
+      category: "dam",
     },
     {
-      id: "skaggtrim-kort",
-      title: "SKÄGG TRIM (KORT)",
-      description: "Formning och trimning av kort skägg (0-3 cm)",
-      duration: "30 minuter",
-      price: "280 kr",
-      icon: <Beard className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/skagg-trim-kort-skagg-0-3-cm-2005403",
+      id: "damklippning-lang",
+      title: "DAMKLIPPNING LÅNG (över 5 cm)",
+      description: "Professionell klippning för långt hår",
+      duration: "60 minuter",
+      price: "500 kr",
+      icon: <Users className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/damklippning-lang-over-5-cm-1272391",
       rating: 4.8,
+      category: "dam",
     },
+    // Herrklippning
     {
-      id: "skaggtrim-langt",
-      title: "SKÄGG TRIM (LÅNGT)",
-      description: "Formning och trimning av långt skägg (över 3 cm)",
+      id: "herrklippning-standard",
+      title: "HERRKLIPPNING STANDARD",
+      description: "Klassisk herrklippning anpassad efter dina önskemål",
       duration: "30 minuter",
-      price: "300 kr",
-      icon: <Beard className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/skagg-trim-over-3-cm-2005399",
-      rating: 4.8,
-    },
-    {
-      id: "rakning",
-      title: "TRADITIONELL RAKNING",
-      description: "Klassisk rakning med kniv för en slät och fräsch känsla",
-      duration: "20 minuter",
-      price: "250 kr",
-      icon: <Razor className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/traditionell-rakning-med-kniv-2005394",
-      rating: 4.7,
-    },
-    {
-      id: "huvud-rakning",
-      title: "HUVUD RAKNING",
-      description: "Rakning av huvudet för en slät och ren look",
-      duration: "20 minuter",
-      price: "199 kr",
-      icon: <Razor className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/huvud-rakning-2005387",
-      rating: 4.6,
-    },
-    {
-      id: "klippning-skagg-kort",
-      title: "KLIPPNING & SKÄGG TRIM (KORT)",
-      description: "Komplett styling med klippning och kort skäggtrimning",
-      duration: "50 minuter",
-      price: "550 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/klippning-skagg-trim-kort-skagg-0-2-cm-2005373",
+      price: "440 kr",
+      icon: <User className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-1272142",
       popular: true,
       rating: 5.0,
+      category: "herr",
     },
     {
-      id: "klippning-skagg-langt",
-      title: "KLIPPNING & SKÄGG TRIM (LÅNGT)",
+      id: "herrklippning-pensionar",
+      title: "HERRKLIPPNING PENSIONÄR",
+      description: "Herrklippning med pensionärsrabatt",
+      duration: "30 minuter",
+      price: "300 kr",
+      icon: <Crown className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-pensionar--1272145",
+      rating: 4.9,
+      category: "herr",
+    },
+    {
+      id: "herrklippning-student",
+      title: "HERRKLIPPNING STUDENT",
+      description: "Herrklippning med studentrabatt",
+      duration: "30 minuter",
+      price: "350 kr",
+      icon: <GraduationCap className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-student--1272147",
+      rating: 4.8,
+      category: "herr",
+    },
+    // Herrklippning & Skägg
+    {
+      id: "herrklippning-skagg-kort",
+      title: "HERRKLIPPNING & SKÄGG KORT (0-2 cm)",
+      description: "Komplett styling med klippning och kort skäggtrimning",
+      duration: "60 minuter",
+      price: "590 kr",
+      icon: <Scissors className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-skagg-kort-skagg-0-2-cm-1272389",
+      popular: true,
+      rating: 5.0,
+      category: "herr",
+    },
+    {
+      id: "herrklippning-skagg-langt",
+      title: "HERRKLIPPNING & SKÄGG LÅNGT (över 2 cm)",
       description: "Komplett styling med klippning och långt skäggtrimning",
       duration: "60 minuter",
       price: "600 kr",
       icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/klippning-skagg-trim-langt-skagg-over-2-cm-2005376",
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-skagg-langt-skagg-over-2-cm-1289620",
       rating: 4.9,
+      category: "herr",
     },
     {
-      id: "klippning-rakning",
-      title: "KLIPPNING & TRADITIONELL RAKNING",
-      description: "Komplett styling med klippning och traditionell rakning",
-      duration: "50 minuter",
-      price: "550 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/klippning-traditionell-rakning-med-kniv-2005377",
+      id: "herrklippning-skagg-pensionar",
+      title: "HERRKLIPPNING & SKÄGG PENSIONÄR",
+      description: "Komplett styling för pensionärer",
+      duration: "30 minuter",
+      price: "400 kr",
+      icon: <Crown className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-skagg-pensionar--1272148",
       rating: 4.8,
+      category: "herr",
     },
     {
-      id: "huvud-skagg",
-      title: "HUVUD RAKNING & SKÄGG TRIM",
+      id: "herrklippning-skagg-student",
+      title: "HERRKLIPPNING & SKÄGG STUDENT",
+      description: "Komplett styling för studenter",
+      duration: "60 minuter",
+      price: "500 kr",
+      icon: <GraduationCap className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/herrklippning-skagg-student--1272461",
+      rating: 4.8,
+      category: "herr",
+    },
+    // Huvudrakning
+    {
+      id: "huvud-rakning",
+      title: "HUVUDRAKNING",
+      description: "Professionell huvudrakning för en slät finish",
+      duration: "30 minuter",
+      price: "350 kr",
+      icon: <User className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/huvud-rakning-1415774",
+      rating: 4.7,
+      category: "special",
+    },
+    {
+      id: "huvud-rakning-skagg",
+      title: "HUVUDRAKNING + SKÄGG",
       description: "Komplett styling med huvudrakning och skäggtrimning",
-      duration: "50 minuter",
-      price: "520 kr",
-      icon: <Razor className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/huvud-rakning-skagg-trim-2005390",
-      rating: 4.7,
-    },
-    {
-      id: "snaggning",
-      title: "SNAGGNING",
-      description: "Enkel snaggning för en ren och enkel stil",
-      duration: "20 minuter",
-      price: "200 kr",
+      duration: "60 minuter",
+      price: "600 kr",
       icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/snaggning-2005413",
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/huvud-rakning-skagg-1415775",
+      rating: 4.8,
+      category: "special",
+    },
+    // Skägg & Rakning
+    {
+      id: "skagg-rakning",
+      title: "SKÄGG & RAKNING",
+      description: "Endast skägg- och rakningsservice",
+      duration: "30 minuter",
+      price: "330 kr",
+      icon: <Scissors className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/skagg-rakning-1272144",
       rating: 4.7,
+      category: "special",
+    },
+    // Snagg / Skinfade
+    {
+      id: "snagg",
+      title: "SNAGG",
+      description: "Enkel snaggning för en ren look",
+      duration: "10 minuter",
+      price: "160 kr",
+      icon: <Scissors className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/snagg-1272143",
+      rating: 4.6,
+      category: "special",
     },
     {
-      id: "snaggning-skinfade",
-      title: "SNAGGNING MED SKINFADE",
-      description: "Snaggning med skinfade för en modern och stilren look",
+      id: "snagg-skagg",
+      title: "SNAGG + SKÄGG",
+      description: "Snaggning kombinerat med skäggtrimning",
       duration: "30 minuter",
       price: "400 kr",
       icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/snaggning-med-skinfade-2005409",
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/snagg-skagg-1272592",
+      rating: 4.7,
+      category: "special",
+    },
+    {
+      id: "snaggning-skinfade",
+      title: "SNAGGNING & SKINFADE",
+      description: "Modern snaggning med skinfade-teknik",
+      duration: "30 minuter",
+      price: "350 kr",
+      icon: <Scissors className="h-6 w-6" />,
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/snaggning-skinfade-1289621",
       rating: 4.8,
+      category: "special",
     },
     {
       id: "snaggning-skinfade-skagg",
-      title: "SNAGGNING MED SKINFADE & SKÄGG TRIM",
-      description: "Komplett styling med snaggning, skinfade och skäggtrimning",
-      duration: "50 minuter",
+      title: "SNAGGNING SKINFADE & SKÄGG",
+      description: "Komplett styling med snaggning, skinfade och skägg",
+      duration: "60 minuter",
       price: "550 kr",
       icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/snaggning-med-skinfade-skagg-trim-2005411",
-      rating: 4.9,
-    },
-    {
-      id: "snaggning-skagg",
-      title: "SNAGGNING & SKÄGG TRIM",
-      description: "Snaggning kombinerat med skäggtrimning",
-      duration: "40 minuter",
-      price: "500 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/snaggning-skagg-trim-2005405",
-      rating: 4.8,
-    },
-    {
-      id: "snaggning-rakning",
-      title: "SNAGGNING & TRADITIONELL RAKNING",
-      description: "Snaggning kombinerat med traditionell rakning",
-      duration: "40 minuter",
-      price: "500 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/snaggning-traditionell-rakning-med-kniv-2005408",
-      rating: 4.8,
-    },
-    {
-      id: "huvud-traditionell",
-      title: "HUVUDRAKNING & TRADITIONELL RAKNING",
-      description: "Komplett styling med huvudrakning och traditionell rakning",
-      duration: "40 minuter",
-      price: "460 kr",
-      icon: <Razor className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/huvudrakning-traditionell-rakning-2005398",
-      rating: 4.7,
-    },
-    {
-      id: "student-klippning-skagg",
-      title: "STUDENT KLIPPNING & SKÄGG TRIM",
-      description: "Komplett styling för studenter med studentrabatt",
-      duration: "50 minuter",
-      price: "500 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/student-klippning-skagg-trim-valfri-langd-2005385",
-      rating: 4.8,
-    },
-    {
-      id: "senior-klippning-skagg",
-      title: "SENIOR KLIPPNING & SKÄGG TRIM",
-      description: "Komplett styling för seniorer med seniorrabatt",
-      duration: "40 minuter",
-      price: "450 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/senior-klippning-trim-av-skagg-valfri-langd-2005378",
-      rating: 4.8,
-    },
-    {
-      id: "brollop-paket",
-      title: "BRÖLLOP & EXKLUSIVA PAKETET",
-      description: "Komplett styling för speciella tillfällen",
-      duration: "70 minuter",
-      price: "700 kr",
-      icon: <Scissors className="h-6 w-6" />,
-      url: "https://www.bokadirekt.se/boka-tjanst/bella-vida-barbershop-49893/brollop-exklusiva-paketet-2005414",
+      url: "https://www.bokadirekt.se/boka-tjanst/samos-barbershop-38023/snaggning-skinfade-skagg-1950643",
       popular: true,
-      rating: 5.0,
+      rating: 4.9,
+      category: "special",
     },
+  ]
+
+  const categories = [
+    { id: "alla", label: "Alla Tjänster", count: services.length },
+    { id: "herr", label: "Herrklippning", count: services.filter(s => s.category === "herr").length },
+    { id: "dam", label: "Damklippning", count: services.filter(s => s.category === "dam").length },
+    { id: "barn", label: "Barnklippning", count: services.filter(s => s.category === "barn").length },
+    { id: "special", label: "Specialtjänster", count: services.filter(s => s.category === "special").length },
   ]
 
   const handleOpenBooking = (service: Service) => {
@@ -348,7 +346,7 @@ const Services = () => {
         {[...Array(5)].map((_, i) => (
           <Star
             key={i}
-            className={`h-3 w-3 ${i < Math.floor(rating) ? "text-amber-500 fill-amber-500" : "text-gray-300"}`}
+            className={`h-3 w-3 ${i < Math.floor(rating) ? "text-blue-500 fill-blue-500" : "text-gray-300"}`}
           />
         ))}
         <span className="ml-1 text-xs text-gray-600">{rating.toFixed(1)}</span>
@@ -371,26 +369,23 @@ const Services = () => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   }
 
-  // Filter services based on search term
-  const filteredServices = services.filter(
-    (service) =>
-      service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      service.description.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
-
-  const loadMoreServices = () => {
-    setVisibleServices((prev) => prev + 6)
-  }
+  // Filter services based on search term and category
+  const filteredServices = services.filter((service) => {
+    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         service.description.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesCategory = selectedCategory === "alla" || service.category === selectedCategory
+    return matchesSearch && matchesCategory
+  })
 
   return (
     <section
       id="tjanster"
       ref={sectionRef}
-      className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden"
     >
       {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-amber-50 rounded-full translate-x-1/2 -translate-y-1/2 opacity-30"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-50 rounded-full -translate-x-1/3 translate-y-1/3 opacity-30"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50 rounded-full -translate-x-1/3 translate-y-1/3 opacity-30"></div>
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-10 md:mb-16">
@@ -400,13 +395,13 @@ const Services = () => {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-5xl font-bold mb-4 mobile-section-title"
           >
-            VÅRA <span className="text-gold">TJÄNSTER</span>
+            VÅRA <span className="text-blue-600">TJÄNSTER</span>
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, width: 0 }}
             animate={isInView ? { opacity: 1, width: "5rem" } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-20 h-1 gold-gradient mx-auto mb-6 hidden md:block"
+            className="w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mb-6 hidden md:block"
           ></motion.div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -414,35 +409,51 @@ const Services = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-600 max-w-2xl mx-auto"
           >
-            Vi erbjuder ett brett utbud av professionella barberartjänster för att möta dina behov. Från klassiska
-            klippningar till skäggtrimning och traditionell rakning.
+            Vi erbjuder ett brett utbud av professionella frisör- och barberartjänster för hela familjen. 
+            Från klassiska klippningar till moderna skinfades och skäggtrimning.
           </motion.p>
 
-          {/* Search input for mobile */}
-          {isMobile && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-6 mb-8 relative max-w-md mx-auto"
-            >
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Sök tjänst..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full py-2 px-4 pr-10 rounded-full border border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-300 text-sm"
-                />
-                <Search className="absolute right-3 top-2.5 h-4 w-4 text-gray-400" />
-              </div>
-            </motion.div>
-          )}
-
+          {/* Search and filter */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-8 space-y-4"
+          >
+            {/* Search input */}
+            <div className="relative max-w-md mx-auto">
+              <input
+                type="text"
+                placeholder="Sök tjänst..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full py-3 px-4 pr-10 rounded-full border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm"
+              />
+              <Search className="absolute right-3 top-3.5 h-4 w-4 text-gray-400" />
+            </div>
+
+            {/* Category filters */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    selectedCategory === category.id
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300 hover:text-blue-600"
+                  }`}
+                >
+                  {category.label} ({category.count})
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.5 }}
             className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8"
           >
             <Button
@@ -450,15 +461,15 @@ const Services = () => {
                 const service = services.find((s) => s.popular) || services[0]
                 handleOpenBooking(service)
               }}
-              className="gold-gradient hover:opacity-90 transition-all duration-300 text-black font-bold px-6 py-3 rounded-md shadow-lg hover:shadow-xl flex items-center w-full sm:w-auto"
+              className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white font-bold px-6 py-3 rounded-md shadow-lg hover:shadow-xl flex items-center w-full sm:w-auto"
             >
               <Calendar className="mr-2 h-5 w-5" />
               <span>Boka Online</span>
             </Button>
 
             <Link
-              href="tel:070-455 66 15"
-              className="bg-black hover:bg-gray-800 text-white transition-all duration-300 font-bold px-6 py-3 rounded-md shadow-lg hover:shadow-xl flex items-center w-full sm:w-auto justify-center"
+              href="tel:036-12 71 12"
+              className="bg-slate-600 hover:bg-slate-700 text-white transition-all duration-300 font-bold px-6 py-3 rounded-md shadow-lg hover:shadow-xl flex items-center w-full sm:w-auto justify-center"
             >
               <Phone className="mr-2 h-5 w-5" />
               <span>Ring Oss</span>
@@ -466,142 +477,90 @@ const Services = () => {
           </motion.div>
         </div>
 
-        {/* Desktop view */}
-        {!isMobile ? (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-          >
-            {filteredServices.map((service) => (
-              <motion.div key={service.id} variants={itemVariants}>
-                <Card className="border border-gray-100 hover:border-amber-200 transition-all duration-300 hover:shadow-md">
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center">
-                        <div className="mr-3 p-2 bg-amber-50 rounded-full">{service.icon}</div>
-                        <h3 className="font-bold text-gray-900">
+        {/* Services Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className={`grid gap-4 ${
+            isMobile 
+              ? "grid-cols-1" 
+              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
+          {filteredServices.map((service) => (
+            <motion.div key={service.id} variants={itemVariants}>
+              <Card className="border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-lg h-full">
+                <CardContent className={`${isMobile ? "p-3" : "p-4"} h-full flex flex-col`}>
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex items-center flex-1">
+                      <div className="mr-3 p-2 bg-blue-50 rounded-full flex-shrink-0">{service.icon}</div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`font-bold text-gray-900 ${isMobile ? "text-sm" : "text-base"} leading-tight`}>
                           {service.title}
                           {service.popular && (
-                            <Badge className="ml-2 gold-gradient text-black font-semibold text-xs">Populär</Badge>
+                            <Badge className="ml-2 bg-blue-600 text-white font-semibold text-xs">Populär</Badge>
                           )}
                         </h3>
-                      </div>
-                      <span className="font-bold text-amber-600">{service.price}</span>
-                    </div>
-
-                    <p className="text-gray-600 text-sm mb-3">{service.description}</p>
-
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Clock className="h-4 w-4 mr-1 text-amber-400" />
-                        <span>{service.duration}</span>
-                      </div>
-                      {service.rating && renderRating(service.rating)}
-                    </div>
-
-                    <div className="mt-4 flex justify-between">
-                      <Button
-                        onClick={() => handleOpenBooking(service)}
-                        variant="outline"
-                        className="text-amber-600 hover:text-amber-800 border-amber-200 hover:border-amber-400 hover:bg-amber-50 text-sm font-medium flex items-center"
-                      >
-                        Boka online
-                        <Calendar className="ml-1 h-3 w-3" />
-                      </Button>
-
-                      <Link
-                        href="tel:070-455 66 15"
-                        className="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center"
-                      >
-                        Ring för bokning
-                        <Phone className="ml-1 h-3 w-3" />
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        ) : (
-          /* Mobile view */
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="space-y-4"
-          >
-            {filteredServices.slice(0, visibleServices).map((service) => (
-              <motion.div key={service.id} variants={itemVariants}>
-                <Card className="border border-gray-100 hover:border-amber-200 transition-all duration-300 hover:shadow-md">
-                  <CardContent className="p-3">
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex items-center">
-                        <div className="mr-2 p-2 bg-amber-50 rounded-full">{service.icon}</div>
-                        <div>
-                          <h3 className="font-bold text-gray-900 text-sm">
-                            {service.title}
-                            {service.popular && (
-                              <Badge className="ml-1 gold-gradient text-black font-semibold text-[10px]">Populär</Badge>
-                            )}
-                          </h3>
-                          <div className="flex items-center text-xs text-gray-500">
-                            <Clock className="h-3 w-3 mr-1 text-amber-400" />
-                            <span>{service.duration}</span>
-                          </div>
+                        <div className="flex items-center mt-1">
+                          <Clock className="h-3 w-3 mr-1 text-blue-400" />
+                          <span className="text-xs text-gray-500">{service.duration}</span>
                         </div>
                       </div>
-                      <span className="font-bold text-amber-600 text-sm">{service.price}</span>
                     </div>
+                    <span className={`font-bold text-blue-600 ${isMobile ? "text-sm" : "text-base"} flex-shrink-0 ml-2`}>
+                      {service.price}
+                    </span>
+                  </div>
 
-                    <div className="flex justify-between items-center mt-3">
-                      <Button
-                        onClick={() => handleOpenBooking(service)}
-                        size="sm"
-                        className="text-amber-600 bg-amber-50 hover:bg-amber-100 text-xs font-medium flex items-center h-8 px-3"
-                      >
-                        Boka
-                        <Calendar className="ml-1 h-3 w-3" />
-                      </Button>
+                  <p className={`text-gray-600 mb-3 flex-1 ${isMobile ? "text-xs" : "text-sm"} leading-relaxed`}>
+                    {service.description}
+                  </p>
 
-                      <Link
-                        href="tel:070-455 66 15"
-                        className="text-gray-600 hover:text-gray-900 text-xs font-medium flex items-center"
-                      >
-                        Ring
-                        <Phone className="ml-1 h-3 w-3" />
-                      </Link>
+                  <div className="flex justify-between items-center mt-auto">
+                    <Button
+                      onClick={() => handleOpenBooking(service)}
+                      className={`bg-blue-600 hover:bg-blue-700 text-white font-medium flex items-center ${
+                        isMobile ? "text-xs px-3 py-2 h-8" : "text-sm px-4 py-2"
+                      }`}
+                    >
+                      Boka
+                      <Calendar className="ml-1 h-3 w-3" />
+                    </Button>
 
+                    <div className="flex items-center gap-2">
                       {service.rating && renderRating(service.rating)}
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
 
-            {filteredServices.length > visibleServices && (
-              <div className="flex justify-center mt-6">
-                <Button
-                  onClick={loadMoreServices}
-                  variant="outline"
-                  className="text-amber-600 border-amber-200 hover:border-amber-400 hover:bg-amber-50"
-                >
-                  Visa fler tjänster
-                  <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </motion.div>
+        {filteredServices.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Inga tjänster hittades för din sökning.</p>
+            <Button
+              onClick={() => {
+                setSearchTerm("")
+                setSelectedCategory("alla")
+              }}
+              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Rensa filter
+            </Button>
+          </div>
         )}
       </div>
 
+      {/* Booking Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent
           ref={dialogContentRef}
           className="sm:max-w-[90%] md:max-w-[800px] lg:max-w-[900px] p-0 overflow-hidden bg-white rounded-lg shadow-2xl border-0 w-[95%] max-h-[80vh] h-[80vh] overflow-y-auto"
         >
-          <DialogHeader className="p-4 sm:p-6 bg-gradient-to-r from-amber-500 to-amber-600 text-white sticky top-0 z-10">
+          <DialogHeader className="p-4 sm:p-6 bg-gradient-to-r from-blue-500 to-blue-700 text-white sticky top-0 z-10">
             <div className="flex justify-between items-start">
               <div>
                 <DialogTitle className="text-xl sm:text-2xl font-bold">{selectedService?.title}</DialogTitle>
@@ -625,7 +584,7 @@ const Services = () => {
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10 p-4 sm:p-6">
                 <div className="w-full max-w-md">
                   <div className="flex items-center justify-center mb-8">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
                   </div>
 
                   <Skeleton className="h-8 w-3/4 mx-auto mb-4" />
@@ -650,7 +609,7 @@ const Services = () => {
 
             {iframeError ? (
               <div className="flex flex-col items-center justify-center p-4 sm:p-8 h-full bg-gray-50">
-                <div className="text-amber-600 mb-4">
+                <div className="text-blue-600 mb-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="48"
@@ -672,14 +631,14 @@ const Services = () => {
                   Det verkar som att vi har problem med att ansluta till bokningssystemet just nu.
                 </p>
                 <div className="flex flex-col gap-4 w-full max-w-xs">
-                  <Button className="gold-gradient hover:opacity-90 text-black" onClick={retryLoading}>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={retryLoading}>
                     Försök igen
                   </Button>
                   <Link
-                    href={selectedService?.url || "https://www.bokadirekt.se/places/bella-vida-barbershop-49893"}
+                    href={selectedService?.url || "https://www.bokadirekt.se/places/samos-barbershop-38023"}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-amber-600 hover:text-amber-700 text-center flex items-center justify-center"
+                    className="text-blue-600 hover:text-blue-700 text-center flex items-center justify-center"
                   >
                     <span>Öppna bokningssidan i nytt fönster</span>
                     <ExternalLink className="ml-2 h-4 w-4" />
@@ -692,7 +651,7 @@ const Services = () => {
             ) : (
               <iframe
                 ref={iframeRef}
-                src={selectedService?.url || "https://www.bokadirekt.se/places/bella-vida-barbershop-49893"}
+                src={selectedService?.url || "https://www.bokadirekt.se/places/samos-barbershop-38023"}
                 title={`Boka ${selectedService?.title}`}
                 className="w-full h-full border-0"
                 onLoad={handleIframeLoad}
@@ -716,7 +675,7 @@ const Services = () => {
           {showScrollTop && (
             <Button
               onClick={scrollToTop}
-              className="fixed bottom-4 right-4 rounded-full h-10 w-10 p-0 bg-amber-500 text-white hover:bg-amber-600 shadow-lg z-20"
+              className="fixed bottom-4 right-4 rounded-full h-10 w-10 p-0 bg-blue-500 text-white hover:bg-blue-600 shadow-lg z-20"
               aria-label="Scrolla till toppen"
             >
               <ChevronUp className="h-5 w-5" />
@@ -730,7 +689,7 @@ const Services = () => {
           <button
             onClick={() => scrollToSection("galleri")}
             aria-label="Scrolla till galleri"
-            className="flex flex-col items-center text-amber-600"
+            className="flex flex-col items-center text-blue-600"
           >
             <span className="text-sm mb-1">Galleri</span>
             <ChevronDown className="h-5 w-5 animate-bounce" />
